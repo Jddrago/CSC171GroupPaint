@@ -1,0 +1,5 @@
+paint features:
+	-eraser
+	-image download/edit
+	-shapes
+	-color dropper
