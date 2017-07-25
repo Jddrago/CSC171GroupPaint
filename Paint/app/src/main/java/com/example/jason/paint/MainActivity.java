@@ -5,6 +5,7 @@ import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.io.File;
@@ -27,18 +28,24 @@ public class MainActivity extends AppCompatActivity {
         customCanvas.clearCanvas();
     }
 
+    public void save(View view){
+        saveToInternalStorage(customCanvas.getDrawingCache());
+    }
+
+    public void resize(View view){
+        Bitmap bitmap = customCanvas.getDrawingCache();
+        Bitmap resized = Bitmap.createScaledBitmap(bitmap,(int)bitmap.getWidth()*2,(int)bitmap.getHeight()*2,true);
+    }
+
     private String saveToInternalStorage(Bitmap bitmapImage){
         ContextWrapper cw = new ContextWrapper(getApplicationContext());
-        // path to /data/data/yourapp/app_data/imageDir
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-        // Create imageDir
         File mypath=new File(directory,"image" + imageId + ".jpg");
         imageId++;
 
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(mypath);
-            // Use the compress method on the BitMap object to write image to the OutputStream
             bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,4 +58,9 @@ public class MainActivity extends AppCompatActivity {
         }
         return directory.getAbsolutePath();
     }
+
+    public void pipette(View view){
+        customCanvas.setPipetteClicked(true);
+    }
+
 }
