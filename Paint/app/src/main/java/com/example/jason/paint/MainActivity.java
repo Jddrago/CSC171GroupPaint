@@ -1,7 +1,11 @@
 package com.example.jason.paint;
 
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -15,8 +19,11 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private CustomCanvas customCanvas;
     private DrawingView drawView;
+    private int imageId = 1;
     private ImageButton currPaint, drawBtn;
+
     private float smallBrush, mediumBrush, largeBrush;
 
 
@@ -25,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawView = (DrawingView)findViewById(R.id.drawing);
+        customCanvas = (CustomCanvas)findViewById(R.id.customCanvas);
         LinearLayout paintLayout = (LinearLayout)findViewById(R.id.paint_colors);
         currPaint = (ImageButton)paintLayout.getChildAt(0);
         currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
@@ -36,7 +44,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     public void paintClicked(View view){
+
         //use chosen color
+    public void clearCanvas(View v) {
         if(view!=currPaint){
 //update color
             ImageButton imgView = (ImageButton)view;
@@ -61,4 +71,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
+        customCanvas.clearCanvas();
+    }
+
+    public void save(View view){
+        saveToInternalStorage(customCanvas.getDrawingCache());
+    }
+
+    public void resize(View view){
+        Bitmap bitmap = customCanvas.getDrawingCache();
+        Bitmap resized = Bitmap.createScaledBitmap(bitmap,(int)bitmap.getWidth()*2,(int)bitmap.getHeight()*2,true);
+    }
+
+    private String saveToInternalStorage(Bitmap bitmapImage){
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File mypath=new File(directory,"image" + imageId + ".jpg");
+        imageId++;
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
+    }
+
+    public void pipette(View view){
+        customCanvas.setPipetteClicked(true);
+    }
+
 }
