@@ -32,4 +32,11 @@ public class CustomCanvas extends View{
         myGreenPaintStroke.setStyle(Paint.Style.STROKE);
         myGreenPaintStroke.setStrokeWidth(10);
     }
+
+    public void clearCanvas() {
+        myPath.reset();
+        invalidate();
+    }
+
+
 }
