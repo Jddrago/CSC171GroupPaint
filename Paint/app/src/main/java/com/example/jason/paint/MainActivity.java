@@ -10,26 +10,79 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.UUID;
+import android.provider.MediaStore;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private CustomCanvas customCanvas;
+    private DrawingView drawView;
     private int imageId = 1;
+    private ImageButton currPaint, drawBtn;
+
+    private float smallBrush, mediumBrush, largeBrush;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        customCanvas = (CustomCanvas)findViewById(R.id.customCanvas);
+        drawView = (DrawingView)findViewById(R.id.drawing);
+        LinearLayout paintLayout = (LinearLayout)findViewById(R.id.paint_colors);
+        currPaint = (ImageButton)paintLayout.getChildAt(0);
+        currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+        smallBrush = getResources().getInteger(R.integer.small_size);
+        mediumBrush = getResources().getInteger(R.integer.medium_size);
+        largeBrush = getResources().getInteger(R.integer.large_size);
+        drawBtn = (ImageButton)findViewById(R.id.draw_btn);
+        drawBtn.setOnClickListener(this);
+
+    }
+    public void paintClicked(View view){
+
+        //use chosen color
+
+        if(view!=currPaint){
+//update color
+            ImageButton imgView = (ImageButton)view;
+            String color = view.getTag().toString();
+            drawView.setColor(color);
+            imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+            currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
+            currPaint=(ImageButton)view;
+        }
+
+
+
     }
 
     public void clearCanvas(View v) {
         customCanvas.clearCanvas();
     }
+
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId()==R.id.draw_btn){
+            //draw button clicked
+            final Dialog brushDialog = new Dialog(this);
+            brushDialog.setTitle("Brush size:");
+
+        }
+    }
+
 
     public void save(View view){
         saveToInternalStorage(customCanvas.getDrawingCache());
