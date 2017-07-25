@@ -1,0 +1,8 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/star" android:icon="@drawable/star" android:title="Star" />
+    <item android:id="@+id/arrow" android:icon="@drawable/arrow" android:title="Arrow" />
+    <item android:id="@+id/circle" android:icon="@drawable/circle" android:title="Circle" />
+    <item android:id="@+id/heart" android:icon="@drawable/heart" android:title="Heart" />
+    <item android:id="@+id/hexagon" android:icon="@drawable/hexagon" android:title="Hexagon" />
+    <item android:id="@+id/square" android:icon="@drawable/square" android:title="Square" />
+</menu>
