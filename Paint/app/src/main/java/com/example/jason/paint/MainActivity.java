@@ -9,6 +9,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.UUID;
 import android.provider.MediaStore;
 import android.app.AlertDialog;
@@ -32,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawView = (DrawingView)findViewById(R.id.drawing);
-        customCanvas = (CustomCanvas)findViewById(R.id.customCanvas);
         LinearLayout paintLayout = (LinearLayout)findViewById(R.id.paint_colors);
         currPaint = (ImageButton)paintLayout.getChildAt(0);
         currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void paintClicked(View view){
 
         //use chosen color
-    public void clearCanvas(View v) {
+
         if(view!=currPaint){
 //update color
             ImageButton imgView = (ImageButton)view;
@@ -61,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    public void clearCanvas(View v) {
+        customCanvas.clearCanvas();
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -71,8 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-        customCanvas.clearCanvas();
-    }
+
 
     public void save(View view){
         saveToInternalStorage(customCanvas.getDrawingCache());
@@ -108,5 +114,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void pipette(View view){
         customCanvas.setPipetteClicked(true);
     }
+
 
 }

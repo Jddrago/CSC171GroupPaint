@@ -7,26 +7,12 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
+
     <LinearLayout
-    <view
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:orientation="horizontal" >
-        android:id="@+id/customCanvas"
-        class="com.example.jason.paint.CustomCanvas"
-        id="@+id/view"
-        android:layout_width="395dp"
-        android:layout_height="587dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
         <ImageButton
             android:id="@+id/new_btn"
@@ -63,11 +49,9 @@
 
 
 
+</LinearLayout>
 
 
-
-
-    </LinearLayout>
 
     <com.example.daniel.drawtester.DrawingView
         android:id="@+id/drawing"
@@ -79,6 +63,8 @@
         android:layout_marginTop="3dp"
         android:layout_weight="1"
         android:background="#FFFFFFFF" />
+
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -220,7 +206,8 @@
                 android:tag="#FF000000" />
         </LinearLayout>
     </LinearLayout>
+    </LinearLayout>
 
 
 
-</LinearLayout>
+
