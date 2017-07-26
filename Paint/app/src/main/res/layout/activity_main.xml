@@ -53,7 +53,7 @@
 
 
 
-    <com.example.daniel.drawtester.DrawingView
+    <com.example.jason.paint.DrawingView
         android:id="@+id/drawing"
         android:layout_width="fill_parent"
         android:layout_height="0dp"

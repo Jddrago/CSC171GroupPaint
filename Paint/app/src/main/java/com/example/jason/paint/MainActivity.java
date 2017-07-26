@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void resize(View view){
         Bitmap bitmap = customCanvas.getDrawingCache();
         Bitmap resized = Bitmap.createScaledBitmap(bitmap,(int)bitmap.getWidth()*2,(int)bitmap.getHeight()*2,true);
+        drawView.getDrawCanvas().drawBitmap(resized,0,0,drawView.getDrawPaint());
     }
 
     private String saveToInternalStorage(Bitmap bitmapImage){
