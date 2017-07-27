@@ -24,8 +24,6 @@ import android.content.DialogInterface;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private CustomCanvas customCanvas;
     private DrawingView drawView;
