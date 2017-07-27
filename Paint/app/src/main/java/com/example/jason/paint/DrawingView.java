@@ -88,5 +88,21 @@ public class DrawingView extends View {
 
 
     }
+
+    public Canvas getDrawCanvas() {
+        return drawCanvas;
+    }
+
+    public void setDrawCanvas(Canvas drawCanvas) {
+        this.drawCanvas = drawCanvas;
+    }
+
+    public Paint getDrawPaint() {
+        return drawPaint;
+    }
+
+    public void setDrawPaint(Paint drawPaint) {
+        this.drawPaint = drawPaint;
+    }
 }
 
