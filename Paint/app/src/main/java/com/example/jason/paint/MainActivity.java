@@ -3,6 +3,7 @@ package com.example.jason.paint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -125,22 +126,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item){
+        Drawable d;
         switch(item.getItemId()){
             case R.id.arrow:
+                d = getResources().getDrawable(R.drawable.arrow);
+                d.draw(drawView.getDrawCanvas());
                 break;
             case R.id.circle:
+                d = getResources().getDrawable(R.drawable.circle);
+                d.draw(drawView.getDrawCanvas());
                 break;
             case R.id.heart:
+                d = getResources().getDrawable(R.drawable.heart);
+                d.draw(drawView.getDrawCanvas());
                 break;
             case R.id.hexagon:
+                d = getResources().getDrawable(R.drawable.hexagon);
+                d.draw(drawView.getDrawCanvas());
                 break;
             case R.id.square:
+                d = getResources().getDrawable(R.drawable.square);
+                d.draw(drawView.getDrawCanvas());
                 break;
             case R.id.star:
+                d = getResources().getDrawable(R.drawable.star);
+                d.draw(drawView.getDrawCanvas());
                 break;
             default: return super.onOptionsItemSelected(item);
         }
         return true;
     }
-
 }
