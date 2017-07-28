@@ -9,21 +9,23 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.MotionEvent;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.util.TypedValue;
 /**
  * Created by Daniel on 7/24/2017.
  */
 
 public class DrawingView extends View {
-    //drawing path
     private Path drawPath;
-    //drawing and canvas paint
-    private Paint drawPaint, canvasPaint;
-    //initial color
+    private Paint drawPaint;
+    private Paint canvasPaint;
     private int paintColor = 0xFF660000;
-    //canvas
     private Canvas drawCanvas;
-    //canvas bitmap
     private Bitmap canvasBitmap;
+    private float brushSize;
+    private float lastBrushSize;
+    private boolean erase=false;
 
     public DrawingView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -40,9 +42,26 @@ public class DrawingView extends View {
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
         canvasPaint = new Paint(Paint.DITHER_FLAG);
+        brushSize = getResources().getInteger(R.integer.medium_size);
+        lastBrushSize = brushSize;
+        drawPaint.setStrokeWidth(brushSize);
 
 
 
+    }
+
+    public void setBrushSize(float newSize){
+//update size
+        float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                newSize, getResources().getDisplayMetrics());
+        brushSize=pixelAmount;
+        drawPaint.setStrokeWidth(brushSize);
+    }
+    public void setLastBrushSize(float lastSize){
+        lastBrushSize=lastSize;
+    }
+    public float getLastBrushSize(){
+        return lastBrushSize;
     }
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {

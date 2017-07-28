@@ -34,6 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:contentDescription="@string/erase"
+            android:onClick="paintClicked"
+            android:tag="#FFFFFFFF"
             android:src="@drawable/eraser" />
 
 
@@ -53,7 +55,7 @@
 
 
 
-    <com.example.daniel.drawtester.DrawingView
+    <com.example.jason.paint.DrawingView
         android:id="@+id/drawing"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
