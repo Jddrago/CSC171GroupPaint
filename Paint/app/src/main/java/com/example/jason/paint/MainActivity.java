@@ -3,8 +3,10 @@ package com.example.jason.paint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -23,7 +25,6 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private CustomCanvas customCanvas;
     private DrawingView drawView;
     private int imageId = 1;
     private ImageButton currPaint;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void clearCanvas(View v) {
-        customCanvas.clearCanvas();
+        drawView.clearCanvas();
     }
 
 
@@ -139,12 +140,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void save(View view){
-        saveToInternalStorage(customCanvas.getDrawingCache());
+        saveToInternalStorage(drawView.getCanvasBitmap());
+    }
+
+    public void eraser(View view){
+        drawView.getDrawPaint().setColor(Color.WHITE);
     }
 
     public void resize(View view){
-        Bitmap bitmap = customCanvas.getDrawingCache();
+        Bitmap bitmap = drawView.getDrawingCache();
         Bitmap resized = Bitmap.createScaledBitmap(bitmap,(int)bitmap.getWidth()*2,(int)bitmap.getHeight()*2,true);
+        drawView.getDrawCanvas().drawBitmap(resized,0,0,drawView.getDrawPaint());
     }
 
     private String saveToInternalStorage(Bitmap bitmapImage){
@@ -166,11 +172,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }
         }
+        Log.i("Save:","successful");
         return directory.getAbsolutePath();
     }
 
     public void pipette(View view){
-        customCanvas.setPipetteClicked(true);
+        drawView.setPipetteClicked(true);
     }
 
 

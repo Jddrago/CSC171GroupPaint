@@ -1,6 +1,7 @@
 package com.example.jason.paint;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.View;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -26,6 +27,8 @@ public class DrawingView extends View {
     private float brushSize;
     private float lastBrushSize;
     private boolean erase=false;
+
+    boolean pipetteClicked = false;
 
     public DrawingView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -82,9 +85,19 @@ public class DrawingView extends View {
 //detect user touch
         float touchX = event.getX();
         float touchY = event.getY();
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                drawPath.moveTo(touchX, touchY);
+                if(pipetteClicked) {
+                    this.buildDrawingCache();
+                    int color = this.getDrawingCache().getPixel((int) touchX, (int) touchY);
+                    drawPaint.setColor(color);
+                    pipetteClicked = false;
+                }
+                else {
+                    drawPath.moveTo(touchX, touchY);
+                }
+
                 break;
             case MotionEvent.ACTION_MOVE:
                 drawPath.lineTo(touchX, touchY);
@@ -106,6 +119,43 @@ public class DrawingView extends View {
         drawPaint.setColor(paintColor);
 
 
+    }
+
+    public boolean isPipetteClicked() {
+        return pipetteClicked;
+    }
+
+    public void setPipetteClicked(boolean pipetteClicked) {
+        this.pipetteClicked = pipetteClicked;
+    }
+
+    public void clearCanvas() {
+        drawCanvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR);
+        invalidate();
+    }
+
+    public Canvas getDrawCanvas() {
+        return drawCanvas;
+    }
+
+    public void setDrawCanvas(Canvas drawCanvas) {
+        this.drawCanvas = drawCanvas;
+    }
+
+    public Paint getDrawPaint() {
+        return drawPaint;
+    }
+
+    public void setDrawPaint(Paint drawPaint) {
+        this.drawPaint = drawPaint;
+    }
+
+    public Bitmap getCanvasBitmap() {
+        return canvasBitmap;
+    }
+
+    public void setCanvasBitmap(Bitmap canvasBitmap) {
+        this.canvasBitmap = canvasBitmap;
     }
 }
 
