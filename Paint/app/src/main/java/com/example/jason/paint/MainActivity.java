@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             final Dialog brushDialog = new Dialog(this);
             brushDialog.setTitle("Brush size:");
             brushDialog.setContentView(R.layout.brush_chooser);
-            ImageButton tinyBtn = (ImageButton)brushDialog.findViewById(R.id.tiny_brush);
+            ImageButton tinyBtn = (ImageButton)brushDialog.findViewById(R.id.small_brush);
             tinyBtn.setOnClickListener(new OnClickListener(){
                 @Override
                 public void onClick(View v) {
