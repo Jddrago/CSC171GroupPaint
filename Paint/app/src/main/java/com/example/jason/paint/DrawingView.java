@@ -1,6 +1,7 @@
 package com.example.jason.paint;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.View;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -24,6 +25,8 @@ public class DrawingView extends View {
     private Canvas drawCanvas;
     //canvas bitmap
     private Bitmap canvasBitmap;
+
+    boolean pipetteClicked = false;
 
     public DrawingView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -63,9 +66,19 @@ public class DrawingView extends View {
 //detect user touch
         float touchX = event.getX();
         float touchY = event.getY();
+
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                drawPath.moveTo(touchX, touchY);
+                if(pipetteClicked) {
+                    this.buildDrawingCache();
+                    int color = this.getDrawingCache().getPixel((int) touchX, (int) touchY);
+                    drawPaint.setColor(color);
+                    pipetteClicked = false;
+                }
+                else {
+                    drawPath.moveTo(touchX, touchY);
+                }
+
                 break;
             case MotionEvent.ACTION_MOVE:
                 drawPath.lineTo(touchX, touchY);
@@ -89,6 +102,19 @@ public class DrawingView extends View {
 
     }
 
+    public boolean isPipetteClicked() {
+        return pipetteClicked;
+    }
+
+    public void setPipetteClicked(boolean pipetteClicked) {
+        this.pipetteClicked = pipetteClicked;
+    }
+
+    public void clearCanvas() {
+        drawCanvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR);
+        invalidate();
+    }
+
     public Canvas getDrawCanvas() {
         return drawCanvas;
     }
@@ -103,6 +129,14 @@ public class DrawingView extends View {
 
     public void setDrawPaint(Paint drawPaint) {
         this.drawPaint = drawPaint;
+    }
+
+    public Bitmap getCanvasBitmap() {
+        return canvasBitmap;
+    }
+
+    public void setCanvasBitmap(Bitmap canvasBitmap) {
+        this.canvasBitmap = canvasBitmap;
     }
 }
 

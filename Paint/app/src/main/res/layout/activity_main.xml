@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:contentDescription="@string/start_new"
+            android:onClick="clearCanvas"
             android:src="@drawable/new_pic" />
 
 
@@ -34,8 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:contentDescription="@string/erase"
+            android:onClick="eraser"
             android:src="@drawable/eraser" />
-
 
 
         <ImageButton
@@ -43,14 +45,21 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:contentDescription="@string/save"
+            android:onClick="save"
             android:src="@drawable/save" />
 
+        <ImageButton
+            android:id="@+id/pipette"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:onClick="pipette"
+            android:scaleType="fitCenter"
+            android:src="@drawable/pippette"
+            app:srcCompat="@drawable/pippette" />
 
 
-
-
-</LinearLayout>
-
+    </LinearLayout>
 
 
     <com.example.jason.paint.DrawingView
