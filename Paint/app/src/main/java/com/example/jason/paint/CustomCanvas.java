@@ -14,7 +14,6 @@ import android.view.View;
 public class CustomCanvas extends View{
     Paint myPaint;
     Path myPath;
-    boolean pipetteClicked = false;
 
     public CustomCanvas(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -29,30 +28,7 @@ public class CustomCanvas extends View{
         myPaint.setStrokeWidth(10);
     }
 
-    public void clearCanvas() {
-        myPath.reset();
-        invalidate();
-    }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getRawX();
-        float y = event.getRawY();
 
-        if(pipetteClicked) {
-            this.buildDrawingCache();
-            int color = this.getDrawingCache().getPixel((int) x, (int) y);
-            myPaint.setColor(color);
-        }
-        pipetteClicked = false;
-        return true;
-    }
 
-    public boolean isPipetteClicked() {
-        return pipetteClicked;
-    }
-
-    public void setPipetteClicked(boolean pipetteClicked) {
-        this.pipetteClicked = pipetteClicked;
-    }
 }
