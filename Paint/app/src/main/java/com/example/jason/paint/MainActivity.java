@@ -3,6 +3,7 @@ package com.example.jason.paint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -133,30 +134,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public boolean onOptionsItemSelected(MenuItem item){
         Drawable d;
+        Bitmap b;
         switch(item.getItemId()){
             case R.id.arrow:
                 d = getResources().getDrawable(R.drawable.arrow);
-                d.draw(drawView.getDrawCanvas());
+                b = ((BitmapDrawable) d).getBitmap();
+                drawView.getDrawCanvas().drawBitmap(b,0,0,drawView.getDrawPaint());
                 break;
             case R.id.circle:
                 d = getResources().getDrawable(R.drawable.circle);
-                d.draw(drawView.getDrawCanvas());
+                b = ((BitmapDrawable) d).getBitmap();
+                drawView.getDrawCanvas().drawBitmap(b,0,0,drawView.getDrawPaint());
                 break;
             case R.id.heart:
                 d = getResources().getDrawable(R.drawable.heart);
-                d.draw(drawView.getDrawCanvas());
+                b = ((BitmapDrawable) d).getBitmap();
+                drawView.getDrawCanvas().drawBitmap(b,0,0,drawView.getDrawPaint());
                 break;
             case R.id.hexagon:
                 d = getResources().getDrawable(R.drawable.hexagon);
-                d.draw(drawView.getDrawCanvas());
+                b = ((BitmapDrawable) d).getBitmap();
+                drawView.getDrawCanvas().drawBitmap(b,0,0,drawView.getDrawPaint());
                 break;
             case R.id.square:
                 d = getResources().getDrawable(R.drawable.square);
-                d.draw(drawView.getDrawCanvas());
+                b = ((BitmapDrawable) d).getBitmap();
+                drawView.getDrawCanvas().drawBitmap(b,0,0,drawView.getDrawPaint());
                 break;
             case R.id.star:
                 d = getResources().getDrawable(R.drawable.star);
-                d.draw(drawView.getDrawCanvas());
+                b = ((BitmapDrawable) d).getBitmap();
+                drawView.getDrawCanvas().drawBitmap(b,0,0,drawView.getDrawPaint());
                 break;
             default: return super.onOptionsItemSelected(item);
         }
